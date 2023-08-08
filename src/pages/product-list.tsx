@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button, ButtonGroup } from '@mui/material';
 import Link from 'next/link';
+import { iProduct } from '@/models/pg/product';
 
-interface Product {
-  id: number;
-  name: string;
-  color: string;
-  type: string;
-  price: number;
+// Format price in dollars
+const priceFormatter = (params: any) => {
+  const { value } = params;
+  return `$${value.toFixed(2)}`;
 }
+
 
 const columns = [
   {
@@ -28,13 +28,13 @@ const columns = [
   {
     field: 'price',
     headerName: 'Price',
+    renderCell: (params: any) => `$${Number(params.value).toFixed(2)}`
   },
   {
     field: 'action',
     headerName: 'Action',
     renderCell: (params: any) => {
       const { row: product } = params;
-      console.log('params', params);
       return (
         <div key={product.sku}>
           <Link href={`/product-detail/${product.sku}`} passHref>
@@ -48,7 +48,7 @@ const columns = [
   },
 ]
 
-const getProducts = async (): Promise<Product[]> => {
+const getProducts = async (): Promise<iProduct[]> => {
   const res = await fetch('/api/products', { cache: 'no-cache'})
   if (!res.ok) {
     throw new Error('Failed to fetch data')
@@ -57,7 +57,7 @@ const getProducts = async (): Promise<Product[]> => {
 }
 
 export default function ProductList() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<iProduct[]>([]);
 
   const handleDelete = (sku: string) => {
     console.log('delete', sku);
