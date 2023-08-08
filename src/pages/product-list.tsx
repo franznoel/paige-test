@@ -3,13 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button, ButtonGroup } from '@mui/material';
 import Link from 'next/link';
 import { iProduct } from '@/models/pg/product';
-
-// Format price in dollars
-const priceFormatter = (params: any) => {
-  const { value } = params;
-  return `$${value.toFixed(2)}`;
-}
-
+import { getProducts } from '../services/httpRequest/httpProduct';
 
 const columns = [
   {
@@ -48,14 +42,6 @@ const columns = [
   },
 ]
 
-const getProducts = async (): Promise<iProduct[]> => {
-  const res = await fetch('/api/products', { cache: 'no-cache'})
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
-  return res.json()
-}
-
 export default function ProductList() {
   const [products, setProducts] = useState<iProduct[]>([]);
 
@@ -82,6 +68,7 @@ export default function ProductList() {
             },
           },
         }}
+        pageSizeOptions={[10, 20]}
       />
     </div>
   );

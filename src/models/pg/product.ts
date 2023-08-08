@@ -11,8 +11,19 @@ export interface iProduct {
   price: number;
 }
 
-export const getAllProducts = (): Promise<iProduct[]> => {
-  const environment = process.env.NODE_ENV;
-  const products = knex(knexConfig[environment]).select('*').from('product');
-  return products;
+class ProductsModel {
+  public static getAllProducts (): Promise<iProduct[]> {
+    const environment = process.env.NODE_ENV;
+    const products = knex(knexConfig[environment]).select('*').from('product');
+    return products;
+  }
+
+  public static getProductBySku (sku: string): Promise<iProduct[]> {
+    const environment = process.env.NODE_ENV;
+    const product = knex(knexConfig[environment]).select('*').from('product').where('sku', sku).limit(1);
+    return product;
+  }  
 }
+
+
+export default ProductsModel;
