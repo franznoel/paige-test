@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import { Button, ButtonGroup } from '@mui/material';
+import Link from 'next/link';
 
 interface Product {
   id: number;
@@ -30,11 +32,24 @@ const columns = [
   {
     field: 'action',
     headerName: 'Action',
-  }
+    renderCell: (params: any) => {
+      const { row: product } = params;
+      console.log('params', params);
+      return (
+        <div key={product.sku}>
+          <Link href={`/product-detail/${product.sku}`} passHref>
+            <Button variant="outlined" >Edit</Button>
+          </Link>
+          <Button variant="outlined" color="error">Delete</Button>
+        </div>
+      )
+    },
+    width: 200,
+  },
 ]
 
 const getProducts = async (): Promise<Product[]> => {
-  const res = await fetch('/api/products', { cache: 'force-cache'})
+  const res = await fetch('/api/products', { cache: 'no-cache'})
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
@@ -43,6 +58,10 @@ const getProducts = async (): Promise<Product[]> => {
 
 export default function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
+
+  const handleDelete = (sku: string) => {
+    console.log('delete', sku);
+  }
 
   useEffect(() => {
     if (products.length === 0) {
