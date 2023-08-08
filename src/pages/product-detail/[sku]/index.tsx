@@ -7,7 +7,9 @@ import { useEffect, useState } from "react";
 
 
 export default function ProductDetail() {
-  const sku = useRouter().query.sku as string;
+  const router = useRouter();
+  const { push } = router;
+  const sku = router.query.sku as string;
   const [product, setProduct] = useState<iProduct | any>();
 
   const [name, setName] = useState<string>(product?.name ?? '');
@@ -18,7 +20,31 @@ export default function ProductDetail() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log('handleSubmit e.target.value', e.target.value);
+
+    const data = {
+      ...product,
+      name,
+      type,
+      description,
+      color,
+      price
+    }
+
+    fetch('/api/products', {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(data)
+    }).then((res) => {
+      console.log('res', res);
+      if (res.ok) {
+        push('/product-list');
+      }
+    })
   }
 
   useEffect(() => {

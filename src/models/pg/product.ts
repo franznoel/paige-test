@@ -28,6 +28,16 @@ class ProductsModel {
     const environment = process.env.NODE_ENV;
     await knex(knexConfig[environment]).delete().from('product').where('sku', sku);
   }
+
+  public static async saveProduct (product: iProduct): Promise<void> {
+    const environment = process.env.NODE_ENV;
+    await knex(knexConfig[environment]).insert(product).into('product');
+  }
+
+  public static async updateProduct (product: iProduct): Promise<void> {
+    const environment = process.env.NODE_ENV;
+    await knex(knexConfig[environment]).update(product).into('product').where('sku', product.sku);
+  }
 }
 
 
