@@ -25,9 +25,9 @@ export default function ProductDetail() {
       })}
       </ul>
       <Link href={`/product-list/`} passHref>
-        <Button variant="outlined" color="secondary">Back</Button>
+        <Button variant="outlined" color="secondary">Cancel</Button>
       </Link>
-      <Button variant="outlined" color="primary">Save</Button>
+      <Button variant="contained" color="primary">Save</Button>
     </div>
   );
 };

@@ -22,7 +22,12 @@ class ProductsModel {
     const environment = process.env.NODE_ENV;
     const product = knex(knexConfig[environment]).select('*').from('product').where('sku', sku).limit(1);
     return product;
-  }  
+  }
+
+  public static async deleteProductBySku (sku: string): Promise<void> {
+    const environment = process.env.NODE_ENV;
+    await knex(knexConfig[environment]).delete().from('product').where('sku', sku);
+  }
 }
 
 

@@ -29,12 +29,23 @@ const columns = [
     headerName: 'Action',
     renderCell: (params: any) => {
       const { row: product } = params;
+
+      const handleDelete = (sku: string) => {
+        fetch(`/api/products/${sku}/delete`)
+          .then((res) => {
+            console.log('res', res);
+            if (res.status === 200) {
+              window.location.reload();
+            }
+          });
+      }
+    
       return (
         <div key={product.sku}>
           <Link href={`/product-detail/${product.sku}`} passHref>
             <Button variant="outlined" >Edit</Button>
           </Link>
-          <Button variant="outlined" color="error">Delete</Button>
+          <Button variant="outlined" color="error" onClick={() => handleDelete(product.sku)}>Delete</Button>
         </div>
       )
     },
@@ -44,10 +55,6 @@ const columns = [
 
 export default function ProductList() {
   const [products, setProducts] = useState<iProduct[]>([]);
-
-  const handleDelete = (sku: string) => {
-    console.log('delete', sku);
-  }
 
   useEffect(() => {
     if (products.length === 0) {
