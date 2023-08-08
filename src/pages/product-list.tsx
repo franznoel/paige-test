@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import { Button, ButtonGroup } from '@mui/material';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { Button } from '@mui/material';
 import Link from 'next/link';
 import { iProduct } from '@/models/pg/product';
 import { getProducts } from '../services/httpRequest/httpProduct';
@@ -76,6 +76,7 @@ export default function ProductList() {
           },
         }}
         pageSizeOptions={[10, 20]}
+        slots={{ toolbar: GridToolbar }}
       />
     </div>
   );
