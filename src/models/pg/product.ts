@@ -14,7 +14,7 @@ export interface iProduct {
 class ProductsModel {
   public static getAllProducts (): Promise<iProduct[]> {
     const environment = process.env.NODE_ENV;
-    const products = knex(knexConfig[environment]).select('*').from('product');
+    const products = knex(knexConfig[environment]).select('*').from('product').orderBy('id', 'desc');
     return products;
   }
 

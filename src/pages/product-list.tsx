@@ -31,7 +31,7 @@ const columns = [
       const { row: product } = params;
 
       const handleDelete = (sku: string) => {
-        fetch(`/api/products/${sku}/delete`)
+        fetch(`/api/products/${sku}/delete`, { method: 'DELETE' })
           .then((res) => {
             console.log('res', res);
             if (res.status === 200) {

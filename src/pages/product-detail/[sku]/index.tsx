@@ -31,7 +31,7 @@ export default function ProductDetail() {
     }
 
     fetch('/api/products', {
-      method: 'POST',
+      method: 'PUT',
       mode: 'cors',
       cache: 'no-cache',
       headers: {

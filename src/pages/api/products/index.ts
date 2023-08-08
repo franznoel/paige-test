@@ -8,7 +8,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(200).json(products);
   }
 
-  if (req.method === 'POST') {
+  if (req.method === 'PUT') {
     console.log('req.body', req.body);
     const product = await ProductModel.updateProduct(req.body as iProduct);
     res.status(200).json({ message: 'Updated product!', product });
