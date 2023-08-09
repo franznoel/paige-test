@@ -21,14 +21,15 @@ First, run the following commands:
 
 ## API
 
-- GET - https://localhost:3000/api/products
-- PUT - https://localhost:3000/api/products (with `iProducts` body)
-- DELETE - https://localhost:3000/api/products/{sku}/delete
+- GET - http://localhost:3000/api/products
+- GET - http://localhost:3000/api/products/{sku}
+- PUT - http://localhost:3000/api/products (with `iProducts` body)
+- DELETE - http://localhost:3000/api/products/{sku}/delete
 
 ## Pages
 
-- product-list - List of products in a table
-- product-detail - Form for product
+- product-list - http://localhost:3000/product-list (List of products in a table)
+- product-detail - http://localhost:3000/product-detail/{sku} (Form for product)
 
 ## Functionality
 
