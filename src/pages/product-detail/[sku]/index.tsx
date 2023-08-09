@@ -67,10 +67,10 @@ export default function ProductDetail() {
       <Grid container spacing={2}>
         <form onSubmit={handleSubmit}>
           <input value={name} placeholder="Name" style={{ width: '500px'}} onChange={(e)=>setName(e.target.value)} /><br/>
-          <input value={type} placeholder="Type" onChange={(e)=>setType(e.target.value)} /><br/>
-          <textarea value={description} placeholder="Description" onChange={(e)=>setDescription(e.target.value)} /><br/>
-          <input value={color} placeholder="Color" onChange={(e)=>setColor(e.target.value)} /><br/>
-          <input value={price} placeholder="Price" onChange={(e)=>setPrice(Number(e.target.value))} /><br/>
+          <input value={type} placeholder="Type" onChange={(e)=>setType(e.target.value)} required maxLength={56} /><br/>
+          <textarea value={description} placeholder="Description" onChange={(e)=>setDescription(e.target.value)} required maxLength={56} /><br/>
+          <input value={color} placeholder="Color" onChange={(e)=>setColor(e.target.value)} required maxLength={56} /><br/>
+          <input value={price} placeholder="Price" onChange={(e)=>setPrice(Number(e.target.value))} maxLength={56} /><br/>
           <Divider/>
           <Link href={`/product-list/`} passHref>
             <Button variant="outlined" color="secondary">Cancel</Button>
